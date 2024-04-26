@@ -13,22 +13,22 @@ router.put('/edit-course',(req, res) => {
     
 })
 
-router.delete('/delete-course',async (req,res) => {
-
-    console.log("course id : ",req.body.id);
+router.delete('/delete',async (req,res) => {
 
     try {
-       
+        // Check if the course exists
+        const course = await Course.findById(req.body.id);
+        if (!course) {
+            return res.status(404).json({ error: 'Course not found' });
+        }
 
-        // Send a success response
-        res.status(200).json({
-            success : true,
-            message : "success"
-        });
-
+        // Delete the course
+        await Course.findByIdAndDelete(req.body.id);
+        
+        res.json({ message: 'Course deleted successfully' });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.error('Error deleting course:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 })
 
@@ -167,14 +167,5 @@ router.post('/login', async (req, res) => {
         });
     }
 });
-
-//PUT Method.
-router.put('/update-user',(req,res) => {
-
-    res.send({
-        type:'PUT'
-    });
-});
-
 
 module.exports = router;
