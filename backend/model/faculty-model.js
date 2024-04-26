@@ -35,7 +35,15 @@ const CourseSchema = new Schema({
         type : String,
         required : [true, 'course name'],
     },
-    topics : []
+    scode : {
+        type : String,
+        required : [true,'subject code required']
+    },
+    year : {
+        type : String,
+        required : [true,'year of study required']
+    },
+    topics : [TopicSchema]
 })
 
 const FacultySchema = new Schema({
@@ -70,5 +78,6 @@ const Faculty = mongoose.model('faculties',FacultySchema);
 const Course = mongoose.model('courses',CourseSchema);
 
 module.exports = {
-    Faculty
+    Faculty,
+    Course
 };

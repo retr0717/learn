@@ -1,5 +1,5 @@
 const express = require('express');
-const {Faculty} = require('../model/faculty-model');
+const {Faculty, Course} = require('../model/faculty-model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
@@ -31,6 +31,46 @@ router.delete('/delete-course',async (req,res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 })
+
+//edit course
+router.put('/edit', async (req, res) => {
+    try {
+        // Find the document by its ID and update it
+        const updatedCourse = await Course.findOneAndUpdate(
+            { _id: req.body.id }, // Filter by ID
+            { $set: req.body }, // Update with new data
+            { new: true } // Return the updated document
+        );
+
+        if (!updatedCourse) {
+            return res.status(404).json({ error: 'Course not found' });
+        }
+
+        // Respond with the updated document
+        res.json(updatedCourse);
+    } catch (error) {
+        console.error('Error updating course:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+//add course route
+router.post('/add',(req,res) => {
+   try
+   { 
+        Course.create(req.body).then(response => {
+            res.status(200).json({
+                success : true,
+                message : "success",
+                course : response
+            });        
+        })
+    }
+    catch(err)
+    {
+        console.log("error occured!",err);
+    }
+});
 
 //Signup Method
 router.post('/signup', async (req, res) => {
