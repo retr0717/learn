@@ -6,12 +6,23 @@ const multer = require('multer');
 const path = require('path');
 const fs = require("fs/promises");
 const fsm = require("fs");
+const { v4: uuidv4 } = require('uuid');
 
 const router = express.Router();
 
-router.put('/edit-course',(req, res) => {
-    
-})
+// Set up Multer for handling file uploads
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'assets/videos/');
+    },
+    filename: function (req, file, cb) {
+      // Generate a unique filename using UUID
+      const uniqueFilename = uuidv4() + path.extname(file.originalname);
+      cb(null, uniqueFilename);
+    }
+  });
+  
+const upload = multer({ storage: storage });
 
 router.delete('/delete',async (req,res) => {
 
@@ -55,10 +66,11 @@ router.put('/edit', async (req, res) => {
 });
 
 //add course route
-router.post('/add',(req,res) => {
+router.post('/add',upload.single('video'),(req,res) => {
    try
    { 
-        Course.create(req.body).then(response => {
+    console.log("form data : ",req.body.data);
+        Course.create(req.body.data).then(response => {
             res.status(200).json({
                 success : true,
                 message : "success",

@@ -1,5 +1,7 @@
 node_modules
+assets/videos/
 
 package-lock.json
 
 .env
+.gitignore
