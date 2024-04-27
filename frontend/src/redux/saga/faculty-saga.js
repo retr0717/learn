@@ -4,7 +4,7 @@ import actions from '../actions/faculty/factions-constants';
 const LoginValidation = (data) => {
 
     const userData = {
-        username:data.email,
+        email:data.email,
         password:data.password
     }
 
@@ -131,6 +131,8 @@ const editCourse = (data) => {
 }
 
 function* handleloginStart(action){
+
+    console.log("reached saga handler : ",action);
 
     try{ 
         const res = yield call(LoginValidation,action.payload);
@@ -269,7 +271,7 @@ function* watchForSignUpStart(){
 }
 
 function* watchForCoursesFetch(){
-    yield takeLatest(actions.FACULTY_COURSES_FETCH_START,handleCoursesFetch)
+    yield takeLatest(actions.FACULTY_COURSE_FETCH_START,handleCoursesFetch)
 }
 
 function* watchForCourseDeleteStart(){

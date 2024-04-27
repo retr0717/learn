@@ -1,7 +1,10 @@
+import { all, takeLatest } from "redux-saga/effects";
+import actions from "../../redux/actions/student/saction-constants";
+
 const LoginValidation = (data) => {
 
     const userData = {
-        username:data.email,
+        email:data.email,
         password:data.password
     }
 
@@ -152,7 +155,7 @@ function* watchForSignUpStart(){
 }
 
 function* watchForCoursesFetch(){
-    yield takeLatest(actions.COURSES_FETCH_START,handleCoursesFetch)
+    yield takeLatest(actions.FETCH_ALL_COURSES,handleCoursesFetch)
 }
 
 export default function* studentSaga()

@@ -131,7 +131,9 @@ router.post('/signup', async (req, res) => {
 //Login Post Method
 router.post('/login', async (req, res) => {
 
-    const user = await Faculty.findOne({username:req.body.username});
+    console.log("req body login : ",req.body);
+
+    const user = await Faculty.findOne({email:req.body.email});
 
     console.log(user);
     if(user)
