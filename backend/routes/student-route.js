@@ -52,9 +52,9 @@ router.post('/signup', async (req, res) => {
 //Login Method
 router.post('/login',async (req,res) => {
 
-    console.log(req.body);
+    console.log("student login request : ", req.body);
 
-    const student = await Student.findOne({username:req.body.username});
+    const student = await Student.findOne({email:req.body.email});
 
     console.log("Student : ",student);
     if(student !== null)
@@ -78,6 +78,9 @@ router.post('/login',async (req,res) => {
                     Studentname : student.username,
                     email : student.email
                 }
+
+                console.log("student data from db : ", StudentData);
+
                 res.status(200).json({
                     success:true,
                     Student : StudentData,

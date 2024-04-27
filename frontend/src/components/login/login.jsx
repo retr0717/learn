@@ -1,10 +1,11 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { connect } from 'react-redux';
-import { Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginAction } from '../../redux/actions/faculty/factions';
+import {sLoginAction} from "../../redux/actions/student/sactions";
 
-const LoginComponent = ({loginSubmit,faculty}) => {
+const LoginComponent = ({ loginSubmit, faculty, sloginSubmit }) => {
 
     const navigate = useNavigate();
 
@@ -16,17 +17,30 @@ const LoginComponent = ({loginSubmit,faculty}) => {
     } = useForm();
 
     const onSubmit = (data) => {
-        //console.log(data);
-        loginSubmit(data);
+        console.log(data);
+        //loginSubmit(data);
+        if(data.userType)
+        {
+            if(data.userType === 'student')
+            {
+                console.log("reached student login start trigger")
+                sloginSubmit(data);
+            }
+            else
+            {
+                loginSubmit(data);
+            }
+        }
+
         reset();
     };
 
     useEffect(() => {
         if (faculty.login) {
-          // User is logged in, navigate to another route
-          navigate('/faculty', { replace: true });
+            // User is logged in, navigate to another route
+            navigate('/faculty', { replace: true });
         }
-      }, [faculty.login, navigate]);
+    }, [faculty.login, navigate]);
 
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
@@ -37,6 +51,36 @@ const LoginComponent = ({loginSubmit,faculty}) => {
                             Sign in to your account
                         </h1>
                         <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit(onSubmit)}>
+                            <fieldset required>
+                                <legend className='sr-only'>User Type</legend>
+                                <div className="flex items-center mb-4">
+                                    <input
+                                        {...register('userType', { required: true })}
+                                        id="userType-student"
+                                        type="radio"
+                                        name="userType"
+                                        value="student"
+                                        className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                                    />
+                                    <label htmlFor="userType-student" className="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                        Student
+                                    </label>
+                                </div>
+                
+                                <div className="flex items-center mb-4">
+                                    <input
+                                        {...register('userType', { required: true })}
+                                        id="userType-faculty"
+                                        type="radio"
+                                        name="userType"
+                                        value="faculty"
+                                        className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                                    />
+                                    <label htmlFor="userType-faculty" className="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                        Faculty
+                                    </label>
+                                </div>
+                            </fieldset>
                             <div>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                                 <input type="email" name="email" id="email"
@@ -46,22 +90,22 @@ const LoginComponent = ({loginSubmit,faculty}) => {
                             </div>
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                <input 
-                                    type="password" 
-                                    name="password" 
-                                    id="password" 
-                                    placeholder="••••••••" 
+                                <input
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    placeholder="••••••••"
                                     {...register('password', { required: true })}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required=""
                                 />
                             </div>
                             <div className="flex items-center justify-between">
-                                <div className="flex items-start">
+                                <div className="flex items-start">                
                                     <div className="flex items-center h-5">
-                                        <input 
-                                            id="remember" 
-                                            aria-describedby="remember" 
-                                            type="checkbox" 
+                                        <input
+                                            id="remember"
+                                            aria-describedby="remember"
+                                            type="checkbox"
                                             {...register('remember', { required: false })}
                                             className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required=""
                                         />
@@ -86,14 +130,15 @@ const LoginComponent = ({loginSubmit,faculty}) => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return{
-        loginSubmit : (data) => dispatch(loginAction(data))
+    return {
+        loginSubmit: (data) => dispatch(loginAction(data)),
+        sloginSubmit : (data) => dispatch(sLoginAction(data))
     }
 }
 
-const mapStateToProps = ({faculty}) => {
+const mapStateToProps = ({ faculty, student }) => {
 
-    return {faculty};
+    return { faculty };
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(LoginComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent);

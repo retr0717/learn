@@ -4,6 +4,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from './components/fcomponents/navbar/navbar';
 import './App.css';
 import Login from "./components/login/login";
+import FacultyHomePage from "./components/fcomponents/home/home";
 
 const App = () => {
 
@@ -14,6 +15,7 @@ const App = () => {
         <Navbar/>
         <Routes>
             <Route exact path="/login" element={<Login/>}/>
+            <Route exact path="/faculty" element={<FacultyHomePage/>}/>
         </Routes>
         </>
     );

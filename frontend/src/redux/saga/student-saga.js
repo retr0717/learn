@@ -1,7 +1,9 @@
-import { all, takeLatest } from "redux-saga/effects";
+import { all, takeLatest , call, put} from "redux-saga/effects";
 import actions from "../../redux/actions/student/saction-constants";
 
 const LoginValidation = (data) => {
+
+    console.log("reached student login : ", data);
 
     const userData = {
         email:data.email,
@@ -75,6 +77,7 @@ const getCourses = (id) => {
 
 function* handleloginStart(action){
 
+    console.log("student login handler");
     try{ 
         const res = yield call(LoginValidation,action.payload);
         
@@ -142,19 +145,19 @@ function* handleCoursesFetch(action){
     }
 }
 
-function* watchForLoginStart(){
+function* watchForStudentLoginStart(){
     yield takeLatest(actions.LOGIN_START,handleloginStart);
 }
 
-function* watchForLogOutStart(){
+function* watchForStudentLogOutStart(){
     yield takeLatest(actions.LOGOUT_START,handleLogOut);
 }
 
-function* watchForSignUpStart(){
+function* watchForStudentSignUpStart(){
     yield takeLatest(actions.SIGNUP_START,handleSignUp);
 }
 
-function* watchForCoursesFetch(){
+function* watchForStudentCoursesFetch(){
     yield takeLatest(actions.FETCH_ALL_COURSES,handleCoursesFetch)
 }
 
@@ -162,9 +165,9 @@ export default function* studentSaga()
 {
     yield all(
         [
-            watchForLoginStart(),
-            watchForLogOutStart(),
-            watchForSignUpStart(),
-            watchForCoursesFetch()
+            watchForStudentLoginStart(),
+            watchForStudentLogOutStart(),
+            watchForStudentSignUpStart(),
+            watchForStudentCoursesFetch()
     ]);
 }

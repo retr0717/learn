@@ -1,6 +1,6 @@
 import actions from "./saction-constants";
 
-export const signUpAction = (payload) => {
+export const sSignUpAction = (payload) => {
 
     return(
         {
@@ -10,7 +10,7 @@ export const signUpAction = (payload) => {
     );
 }
 
-export const loginAction = (payload) => {
+export const sLoginAction = (payload) => {
 
     return(
         {
@@ -20,7 +20,7 @@ export const loginAction = (payload) => {
     )
 };
 
-export const logoutAction = () => {
+export const sLogoutAction = () => {
 
     return{
         type:actions.LOGOUT_START

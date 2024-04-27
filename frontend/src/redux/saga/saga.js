@@ -4,7 +4,7 @@ import studentSaga from './student-saga';
 
 export default function* rootSaga() {
   yield all([
-    facultySaga(),
     studentSaga(),
+    facultySaga(),
   ]);
 }
