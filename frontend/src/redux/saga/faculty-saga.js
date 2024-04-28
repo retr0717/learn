@@ -53,15 +53,13 @@ const SignUp = (data) => {
 
 const getCourses = (id) => {
 
-    const user = {
-        id : id
-    }
-    return fetch(`${import.meta.env.VITE_API_URL}/api/faculty/courses`,{
-        method:'POST',
+    console.log("get course fetch call : ",id);
+
+    return fetch(`${import.meta.env.VITE_API_URL}/api/faculty/courses/${id}`,{
+        method:'GET',
         headers: {
             'Content-Type': 'application/json',
-        },
-        body:JSON.stringify(user)
+        }
     })
     .then(async res =>
         {
@@ -136,10 +134,11 @@ function* handleloginStart(action){
 
     try{ 
         const res = yield call(LoginValidation,action.payload);
+        console.log("login response : ",res);
         
         if(res.success)
         {
-            yield put({type:actions.FACULTY_LOGIN_SUCCESS,payload:res.user});
+            yield put({type:actions.FACULTY_LOGIN_SUCCESS,payload:res.faculty});
         }
         else
         {
@@ -187,13 +186,15 @@ function* handleCoursesFetch(action){
     try{ 
         const res = yield call(getCourses,action.payload);
         
+        console.log("course fetch handler : ",res);
+
         if(res.success)
         {
-            yield put({type:actions.FACULTY_COURSES_FETCH_SUCCESS,payload:res});
+            yield put({type:actions.FACULTY_COURSE_FETCH_SUCCESS,payload:res});
         }
         else
         {
-            yield put({type:actions.FACULTY_COURSES_FETCH_FAILED,payload:res})
+            yield put({type:actions.FACULTY_COURSE_FETCH_SUCCESS,payload:res})
         }
     }
     catch(err){

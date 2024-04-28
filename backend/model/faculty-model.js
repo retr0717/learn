@@ -15,6 +15,9 @@ const McqSchema = new Schema({
 })
 
 const TopicSchema = new Schema({
+    _id: { 
+        type: Schema.Types.ObjectId, auto: true 
+    },
     no : {
         type : String,
         required : [true, 'topic no required']

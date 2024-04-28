@@ -67,16 +67,16 @@ const facultyReducer = (state=initState,action) =>
                 message : action.payload.message,
                 login:false
             }
-        case actions.FACULTY_COURSES_FETCH_SUCCESS:
+        case actions.FACULTY_COURSE_FETCH_SUCCESS:
             return{
                 ...state,
-                contacts : action.payload.contacts
+                courses : action.payload.courses
             }
-        case actions.FACULTY_COURSES_FETCH_FAILED:
+        case actions.FACULTY_COURSE_FETCH_FAILED:
             return {
                 ...state,
                 contacts : null,
-                message : "contacts fetch failed"
+                message : "course fetch failed"
             }
         default:
             return state;

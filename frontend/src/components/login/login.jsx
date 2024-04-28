@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { loginAction } from '../../redux/actions/faculty/factions';
 import {sLoginAction} from "../../redux/actions/student/sactions";
 
-const LoginComponent = ({ loginSubmit, faculty, sloginSubmit }) => {
+const LoginComponent = ({ loginSubmit, faculty, sloginSubmit ,student}) => {
 
     const navigate = useNavigate();
 
@@ -39,6 +39,10 @@ const LoginComponent = ({ loginSubmit, faculty, sloginSubmit }) => {
         if (faculty.login) {
             // User is logged in, navigate to another route
             navigate('/faculty', { replace: true });
+        }
+        else if(student.login)
+        {
+            navigate('/login',{replace : true});
         }
     }, [faculty.login, navigate]);
 
@@ -138,7 +142,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = ({ faculty, student }) => {
 
-    return { faculty };
+    return { faculty, student };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent);

@@ -32,7 +32,7 @@ export const CourseFetchAction = (payload) => {
 
     return(
         {
-            type : actions.FACULTY_COURSES_FETCH_START,
+            type : actions.FACULTY_COURSE_FETCH_START,
             payload : payload
         }
     );

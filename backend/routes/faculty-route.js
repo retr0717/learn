@@ -24,6 +24,30 @@ const storage = multer.diskStorage({
   
 const upload = multer({ storage: storage });
 
+router.get('/courses/:fid', async (req, res) => {
+
+    const fid = req.params.fid;
+  
+    try {
+      // Find all courses with the specified teacher ID
+      const courses = await Course.find({ fid });
+  
+      if (!courses) {
+        return res.status(404).json({ message: 'No courses found for the specified teacher ID' });
+      }
+  
+      res.status(200).json({
+                success : true,
+                message : "success",
+                courses : courses
+            });  
+
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
 router.delete('/delete',async (req,res) => {
 
     try {
@@ -66,11 +90,13 @@ router.put('/edit', async (req, res) => {
 });
 
 //add course route
-router.post('/add',upload.single('video'),(req,res) => {
+router.post('/add',(req,res) => {
+
+    console.log("add request body : ",req.body);
    try
    { 
-    console.log("form data : ",req.body.data);
-        Course.create(req.body.data).then(response => {
+    console.log("form data : ",req.body);
+        Course.create(req.body).then(response => {
             res.status(200).json({
                 success : true,
                 message : "success",
@@ -155,13 +181,17 @@ router.post('/login', async (req, res) => {
                 // user.token = token;
                 const userInfo = {
                     id : user._id,
-                    username : user.username
+                    username : user.username,
+                    fid : user.fid,
+                    dept : user.dept,
+                    email : user.email,
+                    ph_no : user.ph_no
                 }
 
                 res.status(200).json({
                     success : true,
                     message : "success",
-                    Faculty : userInfo
+                    faculty : userInfo
                 });
             }
             else
