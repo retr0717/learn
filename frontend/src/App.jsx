@@ -8,6 +8,7 @@ import FacultyHomePage from "./components/fcomponents/home/home";
 import TopicsComponent from "./components/fcomponents/topics/topics";
 import VideoComponent from "./components/fcomponents/video/video";
 import AddCourseComponent from "./components/fcomponents/add/add";
+import EditComponent from "./components/fcomponents/edit/edit";
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
             <Route exact path="/topics" element={<TopicsComponent/>} />
             <Route exact path="/video" element={<VideoComponent/>} />
             <Route exact path="/faculty/add" element={<AddCourseComponent/>} />
+            <Route exact path="/faculty/edit" element={<EditComponent/>} />
         </Routes>
         </>
     );

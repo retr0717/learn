@@ -109,7 +109,7 @@ const deleteCourse = (data) => {
 }
 
 const editCourse = (data) => {
-    return fetch(`${import.meta.env.VITE_API_URL}/api/faculty/update-contact`,{
+    return fetch(`${import.meta.env.VITE_API_URL}/api/faculty/edit`,{
         method:'PUT',
         headers: {
             'Content-Type': 'application/json',

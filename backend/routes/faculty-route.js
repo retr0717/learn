@@ -55,6 +55,8 @@ router.delete('/delete',async (req,res) => {
 
 //edit course
 router.put('/edit', async (req, res) => {
+
+    console.log("edit route : ",req.body);
     try {
         // Find the document by its ID and update it
         const updatedCourse = await Course.findOneAndUpdate(
@@ -68,7 +70,12 @@ router.put('/edit', async (req, res) => {
         }
 
         // Respond with the updated document
-        res.json(updatedCourse);
+        
+      res.status(200).json({
+        success : true,
+        message : "success"
+    });  
+
     } catch (error) {
         console.error('Error updating course:', error);
         res.status(500).json({ error: 'Internal server error' });
