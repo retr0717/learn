@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { deleteCourseAction } from '../../../redux/actions/faculty/factions';
 
 const DropdownCard = ({course}) => {
+
+    const dispatch = useDispatch();
 
     console.log("Course card : ", course.topics);
     console.log("topics type : " , course.topics);
@@ -26,7 +30,7 @@ const DropdownCard = ({course}) => {
                                 <Link to="/faculty/edit" state={{course : course}} class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit</Link>
                             </li>
                             <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
+                                <a onClick={() => dispatch(deleteCourseAction(course._id))} class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
                             </li>
                         </ul>
                     </div>
