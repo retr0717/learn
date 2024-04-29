@@ -12,6 +12,8 @@ import AddCourseComponent from "./components/fcomponents/add/add";
 import EditComponent from "./components/fcomponents/edit/edit";
 import Snavbar from "./components/scomponents/navbar/snavbar";
 import StudentHome from "./components/scomponents/home/home";
+import STopicsComponent from "./components/scomponents/topics/stopics";
+import SVideoComponent from "./components/scomponents/video/video";
 
 const App = () => {
 
@@ -31,6 +33,8 @@ const App = () => {
             <Route exact path="/video" element={<VideoComponent/>} />
             <Route exact path="/faculty/add" element={<AddCourseComponent/>} />
             <Route exact path="/faculty/edit" element={<EditComponent/>} />
+            <Route exact path="/student/topics" element={<STopicsComponent/>} />
+            <Route exact path="/student/video" element={<SVideoComponent/>} />
         </Routes>
         </>
     );

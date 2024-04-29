@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
-import DropdownCard from "../../fcomponents/course-card/course-card";
 import { fetchCoursesAction } from "../../../redux/actions/student/sactions";
 import { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
 import { select } from "redux-saga/effects";
+import Card from "../course-card/course-card";
 
 const StudentHome = ({ student, courseFetch }) => {
     const dispatch = useDispatch();
@@ -87,7 +87,7 @@ const StudentHome = ({ student, courseFetch }) => {
             <div className="flex m-10 justify-evenly flex-wrap">
                 {filteredCourses && filteredCourses.length !== 0 ?
                     filteredCourses.map(course => (
-                        <DropdownCard
+                        <Card
                             key={course._id}
                             course={course}
                         />
