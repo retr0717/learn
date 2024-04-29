@@ -1,5 +1,6 @@
 import {put,all,call, takeLatest} from 'redux-saga/effects';
 import actions from '../actions/faculty/factions-constants';
+import axios from 'axios';
 
 const LoginValidation = (data) => {
 
@@ -71,24 +72,21 @@ const getCourses = (id) => {
     })
 }
 
-const addCourse = (data) => {
-
-    return fetch(`${import.meta.env.VITE_API_URL}/api/faculty/add`,{
-        method:'POST',
+const addCourse = (formData) => {
+    return axios.post(`${import.meta.env.VITE_API_URL}/api/faculty/add`, formData, {
         headers: {
             'Content-Type': 'application/json',
-        },
-        body:JSON.stringify(data)
+        }
     })
-    .then(async res =>
-        {
-            res = await res.json();
-            return res;
-        })
+    .then(response => {
+        console.log("add course response:", response.data);
+        return response.data;
+    })
     .catch(error => {
-        //console.log(error)
-    })
-}
+        console.error("Error adding course:", error);
+        throw error;
+    });
+};
 
 const deleteCourse = (data) => {
 
@@ -106,7 +104,7 @@ const deleteCourse = (data) => {
             return res;
         })
     .catch(error => {
-        //console.log(error)
+        console.log(error)
     })
 }
 
@@ -225,6 +223,8 @@ function* handleAddCourse(action)
 {
     try{ 
         const res = yield call(addCourse,action.payload);
+
+        console.log("handle add course reponse : ", res);
         
         if(res.success)
         {

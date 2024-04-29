@@ -10,20 +10,6 @@ const { v4: uuidv4 } = require('uuid');
 
 const router = express.Router();
 
-// Set up Multer for handling file uploads
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'assets/videos/');
-    },
-    filename: function (req, file, cb) {
-      // Generate a unique filename using UUID
-      const uniqueFilename = uuidv4() + path.extname(file.originalname);
-      cb(null, uniqueFilename);
-    }
-  });
-  
-const upload = multer({ storage: storage });
-
 router.get('/courses/:fid', async (req, res) => {
 
     const fid = req.params.fid;
@@ -89,13 +75,52 @@ router.put('/edit', async (req, res) => {
     }
 });
 
-//add course route
-router.post('/add',(req,res) => {
+// Set up Multer for handling file uploads
+// Set up Multer for handling file uploads
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'assets/videos/');
+    },
+    filename: function (req, file, cb) {
+        // Generate a unique filename using UUID
+        const videoId = uuidv4();
+        const uniqueFilename = videoId + path.extname(file.originalname);
+        cb(null, uniqueFilename);
+    }
+});
 
-    console.log("add request body : ",req.body);
+const upload = multer({ storage: storage });
+
+router.post('/upload', upload.single('video'), (req, res) => {
+    try {
+        // Extract uploaded video file
+        const videoFile = req.file;
+
+        // Generate a unique ID for the video file
+        const videoId = path.basename(videoFile.filename, path.extname(videoFile.filename));
+
+        // Send the unique video ID as part of the server response
+        res.status(200).json({
+            success: true,
+            message: 'Video uploaded successfully',
+            videoId: videoId
+        });
+    } catch (error) {
+        console.error('Error uploading video:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error uploading video'
+        });
+    }
+});
+
+module.exports = router;
+
+//add course route
+router.post('/add',async (req,res) => {
+
    try
    { 
-    console.log("form data : ",req.body);
         Course.create(req.body).then(response => {
             res.status(200).json({
                 success : true,

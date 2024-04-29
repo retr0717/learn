@@ -22,7 +22,7 @@ export const addCourseAction = (payload) => {
 
     return(
         {
-            type : actions.FACULTY_ADD_Course_START,
+            type : actions.FACULTY_ADD_COURSE_START,
             payload : payload
         }
     );
