@@ -53,21 +53,15 @@ const SignUp = (data) => {
     })
 }
 
-const getCourses = (id) => {
+const getCourses = () => {
 
-    const user = {
-        id : id
-    }
     return fetch(`${import.meta.env.VITE_API_URL}/api/student/courses`,{
-        method:'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body:JSON.stringify(user)
+        method:'GET'
     })
     .then(async res =>
         {
             res = await res.json();
+            console.log("student courses response : ",res);
             return res;
         })
     .catch(error => {
@@ -83,7 +77,7 @@ function* handleloginStart(action){
         
         if(res.success)
         {
-            yield put({type:actions.LOGIN_SUCCESS,payload:res.user});
+            yield put({type:actions.LOGIN_SUCCESS,payload:res.student});
         }
         else
         {
@@ -129,15 +123,17 @@ function* handleSignUp(action){
 function* handleCoursesFetch(action){
 
     try{ 
-        const res = yield call(getCourses,action.payload);
+        const res = yield call(getCourses);
+
+        console.log("get courses handler : ",res);
         
         if(res.success)
         {
-            yield put({type:actions.COURSES_FETCH_SUCCESS,payload:res});
+            yield put({type:actions.FETCH_ALL_COURSES_SUCCESS,payload:res.courses});
         }
         else
         {
-            yield put({type:actions.COURSES_FETCH_FAILED,payload:res})
+            yield put({type:actions.FETCH_ALL_COURSES_FAILED,payload:res})
         }
     }
     catch(err){
@@ -158,7 +154,7 @@ function* watchForStudentSignUpStart(){
 }
 
 function* watchForStudentCoursesFetch(){
-    yield takeLatest(actions.FETCH_ALL_COURSES,handleCoursesFetch)
+    yield takeLatest(actions.FETCH_ALL_COURSES_START,handleCoursesFetch)
 }
 
 export default function* studentSaga()

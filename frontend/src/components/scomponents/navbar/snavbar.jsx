@@ -1,19 +1,19 @@
 import React from "react";
-import { logoutAction } from '../../../redux/actions/faculty/factions';
+import { sLogoutAction } from '../../../redux/actions/student/sactions';
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-const Navbar = ({faculty, logOut}) => {
+const SNavbar = ({student, logOut}) => {
     return (
         <nav className="sticky top-0 z-50 bg-white border-gray-200 dark:bg-gray-900">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <Link to="/faculty" className="flex items-center space-x-3 rtl:space-x-reverse">
+                <Link to="/student" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
-                    <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">FACULTY</span>
+                    <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">E-LEARN</span>
                 </Link>
 
                 {
-                    faculty.login ?
+                    student.login ?
                     <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                     <button type="button" className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                         <span className="sr-only">Open user menu</span>
@@ -82,13 +82,12 @@ const Navbar = ({faculty, logOut}) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        logOut: () => dispatch(logoutAction())
+        logOut: () => dispatch(sLogoutAction())
     }
 }
 
-const mapStateToProps = ({ faculty }) => {
-    console.log("Props navbar : ", faculty)
-    return { faculty };
+const mapStateToProps = ({ student }) => {
+    return { student };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(SNavbar);

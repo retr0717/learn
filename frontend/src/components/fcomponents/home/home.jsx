@@ -14,7 +14,10 @@ const FacultyHomePage = ({ faculty, courseFetch }) => {
 
     useEffect(() => {
         // Dispatch the courseFetch action when the component mounts
-        dispatch(courseFetch(faculty.user.fid));
+        if(faculty.user)
+        {
+            dispatch(courseFetch(faculty.user.fid));
+        }
 
         if (!faculty.login) {
             navigate('/login', { replace: true });

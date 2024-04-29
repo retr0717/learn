@@ -37,17 +37,17 @@ const studentReducer = (state=initState,action) =>
                 message : action.payload.message,
                 login:false
             }
-        // case actions.COURSES_FETCH_SUCCESS:
-        //     return{
-        //         ...state,
-        //         contacts : action.payload.contacts
-        //     }
-        // case actions.COURSES_FETCH_FAILED:
-        //     return {
-        //         ...state,
-        //         contacts : null,
-        //         message : "contacts fetch failed"
-        //     }
+        case actions.FETCH_ALL_COURSES_SUCCESS:
+            return{
+                ...state,
+                courses : action.payload
+            }
+        case actions.FETCH_ALL_COURSES_FAILED:
+            return {
+                ...state,
+                courses : null,
+                message : "contacts fetch failed"
+            }
         default:
             return state;
     }

@@ -1,9 +1,29 @@
 const express = require('express');
 const router = express.Router();
 const {Student} = require('../model/student-model');
+const {Course} = require('../model/faculty-model');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const path = require('path');
+
+router.get('/courses', async (req, res) => {
+    try {
+        // Fetch all courses from the Course collection
+        const courses = await Course.find();
+
+        console.log("courses : ",courses);
+
+        res.status(200).json({
+            success : true,
+            message : "success",
+            courses : courses
+        });
+
+    } catch (error) {
+        console.error('Error fetching courses:', error);
+        res.status(500).json({ error: 'Internal server error' }); // Send error response if an error occurs
+    }
+});
 
 //Signup Method
 router.post('/signup', async (req, res) => {
@@ -75,15 +95,19 @@ router.post('/login',async (req,res) => {
                 // // save Student token
                 // Student.token = token;
                 const StudentData = {
-                    Studentname : student.username,
-                    email : student.email
+                    username : student.username,
+                    email : student.email,
+                    adm_no : student.adm_no,
+                    points : student.points,
+                    ph_no : student.ph_no,
+                    id : student._id
                 }
 
                 console.log("student data from db : ", StudentData);
 
                 res.status(200).json({
                     success:true,
-                    Student : StudentData,
+                    student : StudentData,
                     message : "login successful"
                 });
             }
@@ -103,30 +127,5 @@ router.post('/login',async (req,res) => {
     }
 
 })
-
-//Get Method to get four random images.
-router.get('/get-products',async (req, res,next) => {
-
-    let products = await StudentHelper.randomItems();
-    console.log(__dirname);
-
-   res.send({products});
-
-});
-
-//PUT Method.
-router.put('/update-Student',(req,res) => {
-
-    res.send({
-        type:'PUT'
-    });
-});
-
-//DELETE METHOD.
-router.delete('/delete-Student',(req,res) => {
-    res.send({
-        type:'DELETE'
-    })
-});
 
 module.exports = router;

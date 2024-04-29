@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { connect } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginAction } from '../../redux/actions/faculty/factions';
-import {sLoginAction} from "../../redux/actions/student/sactions";
+import { loginAction } from '../../../redux/actions/faculty/factions';
 
-const LoginComponent = ({ sloginSubmit ,student}) => {
+const FLogin = ({ faculty, loginSubmit }) => {
 
     const navigate = useNavigate();
 
@@ -18,17 +17,17 @@ const LoginComponent = ({ sloginSubmit ,student}) => {
 
     const onSubmit = (data) => {
         
-        sloginSubmit(data);
+        loginSubmit(data);
 
         reset();
     };
 
     useEffect(() => {
-    if(student.login)
+        if(faculty.login)
         {
-            navigate('/student',{replace : true});
+            navigate('/faculty/',{replace : true});
         }
-    }, [student.login, navigate]);
+    }, [faculty.login, navigate]);
 
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
@@ -89,13 +88,13 @@ const LoginComponent = ({ sloginSubmit ,student}) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        sloginSubmit : (data) => dispatch(sLoginAction(data))
+        loginSubmit : (data) => dispatch(loginAction(data))
     }
 }
 
-const mapStateToProps = ({ faculty, student }) => {
+const mapStateToProps = ({ faculty }) => {
 
-    return { student };
+    return { faculty };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(FLogin);

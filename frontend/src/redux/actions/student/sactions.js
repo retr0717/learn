@@ -26,3 +26,9 @@ export const sLogoutAction = () => {
         type:actions.LOGOUT_START
     }
 }
+
+export const fetchCoursesAction = () => {
+    return{
+        type : actions.FETCH_ALL_COURSES_START
+    }
+}
