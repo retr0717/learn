@@ -21,12 +21,12 @@ const facultyReducer = (state=initState,action) =>
         case actions.FACULTY_COURSE_DELETE_SUCCESS:
             return{
                 ...state,
-                delete_contact : true
+                delete_course : true
             }
         case actions.FACULTY_COURSE_DELETE_FAILED:
             return{
                 ...state,
-                delete_contact : false
+                delete_course : false
             }
         case actions.FACULTY_ADD_COURSE_SUCCESS:
             return{

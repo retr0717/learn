@@ -20,7 +20,7 @@ const FacultyHomePage = ({ faculty, courseFetch }) => {
             navigate('/login', { replace: true });
         }
 
-    }, [dispatch, faculty.login]);
+    }, [dispatch, faculty.login, faculty.delete_course]);
 
     return (
         <section className="w-full h-screen">

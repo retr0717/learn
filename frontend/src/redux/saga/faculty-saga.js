@@ -90,13 +90,18 @@ const addCourse = (formData) => {
 
 const deleteCourse = (data) => {
 
+    console.log("delete course : ",data);
+
+    const ddata = {
+        id : data
+    }
 
     return fetch(`${import.meta.env.VITE_API_URL}/api/faculty/delete`,{
         method:'DELETE',
         headers: {
             'Content-Type': 'application/json',
         },
-        body:JSON.stringify(data)
+        body:JSON.stringify(ddata)
     })
     .then(async res =>
         {

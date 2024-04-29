@@ -36,9 +36,14 @@ router.get('/courses/:fid', async (req, res) => {
 
 router.delete('/delete',async (req,res) => {
 
+    console.log("delete route : ",req.body.id);
+
     try {
         // Check if the course exists
-        const course = await Course.findById(req.body.id);
+        const course = await Course.findOne({ _id : req.body.id});
+
+        console.log("delete course : ",course);
+
         if (!course) {
             return res.status(404).json({ error: 'Course not found' });
         }
@@ -46,7 +51,11 @@ router.delete('/delete',async (req,res) => {
         // Delete the course
         await Course.findByIdAndDelete(req.body.id);
         
-        res.json({ message: 'Course deleted successfully' });
+        res.status(200).json({
+            success : true,
+            message : "success"
+        }); 
+
     } catch (error) {
         console.error('Error deleting course:', error);
         res.status(500).json({ error: 'Internal server error' });
