@@ -2,9 +2,9 @@
 
 ![E-LEARN Banner](./assets/banner.png)
 
-[![GitHub license](https://img.shields.io/github/license/yourusername/E-LEARN?style=for-the-badge)](./LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/yourusername/E-LEARN?style=for-the-badge)](https://github.com/yourusername/E-LEARN/issues)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/E-LEARN?style=for-the-badge)](https://github.com/yourusername/E-LEARN/network)
+[![GitHub license](https://img.shields.io/github/license/retr0717/E-LEARN?style=for-the-badge)](./LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/retr0717/E-LEARN?style=for-the-badge)](https://github.com/retr0717/learn/issues)
+[![GitHub forks](https://img.shields.io/github/forks/retr0717/learn?style=for-the-badge)](https://github.com/retr0717/learn/network)
 
 ## 🚀 Overview
 
@@ -42,4 +42,30 @@
 1. **Fork the Repository**: Click on the "Fork" button at the top of this page to make a copy of this repository on your GitHub account.
 2. **Clone your Fork**:
    ```bash
-   git clone https://github.com/yourusername/E-LEARN.git
+   git clone https://github.com/retr0717/learn.git
+3. **Navigate to the Project Directory**:
+   ```bash
+   cd learn
+4. **Navigate to the Sub Directory**:
+   ```bash
+   cd frontend
+5. **Install Dependencies**:
+   ```bash
+   npm i
+6. **Navigate to the Sub Directory**:
+   ```bash
+   cd backend
+7. **Install Dependencies**:
+   ```bash
+   npm i
+8. **Set up Environment Variables: Create a .env file in the root directory**:
+   ```bash
+   MONGO_URI=your_mongodb_uri
+   ```bash
+   JWT_SECRET=your_secret_key
+9. **Start the Frontend Development Server**:
+   ```bash
+   npm run dev
+10. **Start the Backend Development Server**:
+   ```bash
+   npm start
