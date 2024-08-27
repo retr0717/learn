@@ -1,4 +1,4 @@
-E-LEARN
+#E-LEARN
 
 Overview
 E-LEARN is a modern e-learning platform designed to provide users with a seamless and interactive educational experience. Built with a robust stack, it leverages the power of React for a dynamic front-end, Redux for state management, Express REST API for a scalable back-end, and MongoDB for efficient data storage.
@@ -23,7 +23,7 @@ Steps
 Clone the repository:
 bash
 Copy code
-git clone https://github.com/yourusername/E-LEARN.git
+git clone https://github.com/yourusername/learn.git
 Navigate to the project directory:
 bash
 Copy code
