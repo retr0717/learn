@@ -1,6 +1,6 @@
 # E-LEARN
 
-![E-LEARN Banner](./assets/banner.png)
+![E-LEARN Banner](./frontend/public/banner.png)
 
 [![GitHub license](https://img.shields.io/github/license/retr0717/E-LEARN?style=for-the-badge)](./LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/retr0717/E-LEARN?style=for-the-badge)](https://github.com/retr0717/learn/issues)
@@ -61,7 +61,6 @@
 8. **Set up Environment Variables: Create a .env file in the root directory**:
    ```bash
    MONGO_URI=your_mongodb_uri
-   ```bash
    JWT_SECRET=your_secret_key
 9. **Start the Frontend Development Server**:
    ```bash
